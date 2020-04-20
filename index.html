@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Relatório Covid-19</title>
+</head>
+<body>
+    <header>
+        <div class="banner">
+            <div class="container">
+                <div class="row py-5">
+                    <div class="col-12">
+                        <p class="text-right my-4">
+                            <span class="titulo1">Relatório</span><br/>
+                            <span class="titulo2">Covid-19</span><br/>
+                            <span class="atualizado">Atualizado em: 19/04/2020</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row my-4">
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Casos no Mundo
+                            </h5>
+                            <p class="card-text text-right casos_mundo">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-info">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Curados no Mundo
+                            </h5>
+                            <p class="card-text text-right curados_mundo">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Óbitos no Mundo
+                            </h5>
+                            <p class="card-text text-right obitos_mundo">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Casos no Brasil
+                            </h5>
+                            <p class="card-text text-right casos_brasil">0</p>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-info">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Curados no Brasil
+                            </h5>
+                            <p class="card-text text-right curados_brasil">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="card alert-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Óbitos no Brasil
+                            </h5>
+                            <p class="card-text text-right obitos_brasil">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-12 col-md-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Casos acumulados no Brasil</h5>
+                            <canvas id="myChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Casos por Estado Brasileiro</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Estado</th>
+                                        <th>Casos</th>
+                                        <th>Mortes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let obitosNoBrasil = 0, casosNoBrasil = 0;
+
+        function formatarValor(valor) {
+            return valor.toLocaleString('pt-BR');
+        }
+
+        function alimentaEstados(dados){
+            dados.forEach(element => {
+
+                let dadosBuscar = ['state', 'cases', 'deaths'];
+                let linha, coluna, texto;
+
+                linha = document.createElement('tr');
+                dadosBuscar.forEach(dadoBusca => {
+                    coluna = document.createElement('td');
+                    texto = document.createTextNode(element[dadoBusca]);
+                    coluna.appendChild(texto);
+                    linha.appendChild(coluna);
+
+                    obitosNoBrasil += (dadoBusca == 'deaths')? element[dadoBusca]: 0;
+                    casosNoBrasil += (dadoBusca == 'cases')? element[dadoBusca]: 0;
+                });
+                
+                document.querySelector("tbody").appendChild(linha);
+                document.querySelector('.casos_brasil').innerHTML=formatarValor(casosNoBrasil);
+                document.querySelector('.obitos_brasil').innerHTML=formatarValor(obitosNoBrasil);
+            });
+        }
+        
+        fetch("https://covid19-brazil-api.now.sh/api/report/v1", {
+            "method": "GET"
+        })
+        .then(response => { response.json()
+            .then(result => {
+                alimentaEstados(result.data)
+            })
+        })
+        .catch(err => console.error(err));
+
+
+        let casosNoMundo = 0, curadosNoMundo = 0, curadosNoBrasil = 0, obitosNoMundo = 0;
+
+        function mundo(dados){
+            dados.forEach(element => {
+
+                let dadosBuscar = ['country', 'cases', 'confirmed', 'deaths', 'recovered'];
+                
+                curadosNoBrasil = (element['country'] == 'Brazil')? element['recovered']: curadosNoBrasil;
+
+                dadosBuscar.forEach(dadoBusca => {
+                    casosNoMundo += (dadoBusca == 'confirmed')? element[dadoBusca]: 0;
+                    curadosNoMundo += (dadoBusca == 'recovered')? element[dadoBusca]: 0;
+                    obitosNoMundo += (dadoBusca == 'deaths')? element[dadoBusca]: 0;
+                });
+            });
+            document.querySelector('.curados_brasil').innerHTML = formatarValor(curadosNoBrasil);
+            document.querySelector('.casos_mundo').innerHTML = formatarValor(casosNoMundo);
+            document.querySelector('.curados_mundo').innerHTML = formatarValor(curadosNoMundo);
+            document.querySelector('.obitos_mundo').innerHTML = formatarValor(obitosNoMundo);
+        }
+
+        fetch("https://covid19-brazil-api.now.sh/api/report/v1/countries", {
+            "method": "GET"
+        })
+        .then(response => { response.json()
+            .then(result => {
+                mundo(result.data);
+            })
+        })
+        .catch(err => console.error(err));
+
+
+        let dias = [], casosConfirmados = [], mortes = [], curados = [];
+        function graficoBrasil(dados){
+            dados.forEach(dado => {
+                if(dado['confirmed'] > 0){
+                    
+                    dias.push(dado['date']);
+                    casosConfirmados.push(dado['confirmed']);
+                    mortes.push(dado['deaths']);
+                    curados.push(dado['recovered']);
+                }
+            });
+            console.log(dias);
+            console.log(casosConfirmados);
+            console.log(mortes);
+            console.log(curados);
+        }
+
+        
+        fetch("https://pomber.github.io/covid19/timeseries.json", {
+            "method": "GET"
+        })
+        .then(response => { response.json()
+            .then(result => {
+                graficoBrasil(result['Brazil']);
+                //console.log(result['Brazil']);
+            })
+        })
+        .catch(err => console.error(err));
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dias,
+                datasets: [{
+                    label: 'Casos Confirmados',
+                    data: casosConfirmados,
+                    borderColor: '#dbba34',
+                    fill: false
+                },
+                {
+                    label: "Mortes",
+                    data: mortes,
+                    borderColor: '#c62f29',
+                    fill: true
+                },
+                {
+                    label: "Curados",
+                    data: curados,
+                    borderColor: '#637b85',
+                    fill: false
+                }]
+            },
+        });
+    </script>
+</body>
+</html>
