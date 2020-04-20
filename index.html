@@ -26,7 +26,7 @@
     <main>
         <div class="container">
             <div class="row my-4">
-                <div class="col-6 col-md-2 my-2">
+                <div class="col-6 col-md-2 my-2 order-md-1">
                     <div class="card alert-warning">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -36,27 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-2 my-2">
-                    <div class="card alert-info">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Curados no Mundo
-                            </h5>
-                            <p class="card-text text-right curados_mundo">0</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 my-2">
-                    <div class="card alert-danger">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Óbitos no Mundo
-                            </h5>
-                            <p class="card-text text-right obitos_mundo">0</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 my-2">
+                <div class="col-6 col-md-2 my-2 order-md-4">
                     <div class="card alert-warning">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -66,7 +46,17 @@
                         </div>
                     </div>                    
                 </div>
-                <div class="col-6 col-md-2 my-2">
+                <div class="col-6 col-md-2 my-2 order-md-2">
+                    <div class="card alert-info">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Curados no Mundo
+                            </h5>
+                            <p class="card-text text-right curados_mundo">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2 order-md-5">
                     <div class="card alert-info">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -76,7 +66,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-2 my-2">
+                <div class="col-6 col-md-2 my-2 order-md-3">
+                    <div class="card alert-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Óbitos no Mundo
+                            </h5>
+                            <p class="card-text text-right obitos_mundo">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 my-2 order-md-6">
                     <div class="card alert-danger">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -87,18 +87,41 @@
                     </div>
                 </div>
             </div>
-            <div class="row my-4">
-                <div class="col-12 col-md-7">
+            <div class="row">
+                <div class="col-12 col-md-7 my-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Casos acumulados no Brasil</h5>
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title">Casos acumulados</h5>
+                                </div>
+                                <div class="col col-md-3 text-right">
+                                    <select class="form-control form-control-sm">
+                                        <option>Brasil</option>
+                                        <option>Mundo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Período
+                                </div>
+                                <div class="col col-md-3 text-right">
+                                    <select class="form-control form-control-sm" id="selectPeriodo">
+                                        <option value="7">Semana</option>
+                                        <option value="15">Quinzena</option>
+                                        <option value="30">Mês</option>
+                                        <option value="all">Do Início</option>
+                                    </select>
+                                </div>
+                            </div>
                             <canvas id="myChart" height="200"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-5 my-4">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="overflow: auto; height: 400px">
                             <h5 class="card-title">Casos por Estado Brasileiro</h5>
                             <table class="table table-striped">
                                 <thead>
@@ -195,17 +218,12 @@
         function graficoBrasil(dados){
             dados.forEach(dado => {
                 if(dado['confirmed'] > 0){
-                    
                     dias.push(dado['date']);
                     casosConfirmados.push(dado['confirmed']);
                     mortes.push(dado['deaths']);
                     curados.push(dado['recovered']);
                 }
             });
-            console.log(dias);
-            console.log(casosConfirmados);
-            console.log(mortes);
-            console.log(curados);
         }
 
         
@@ -215,39 +233,85 @@
         .then(response => { response.json()
             .then(result => {
                 graficoBrasil(result['Brazil']);
-                desenha();
+                desenha(selectPeriodo.value);
             })
         })
         .catch(err => console.error(err));
 
-        function desenha(){
-            var ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(ctx, {
+        function arrayPeriodo(periodo, dados){
+            let novoPeriodo = [];
+            for(let i = dados.length + 1 - periodo; i <= dados.length; i++){
+                novoPeriodo.push(dados[i-1]);
+            }
+            return novoPeriodo;
+        }
+
+        var canvas = document.getElementById('myChart');
+        const ctx = canvas.getContext('2d');
+        var chart;
+        function desenha(tamanhoPeriodo){
+            chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dias,
+                    labels: arrayPeriodo(tamanhoPeriodo, dias),
                     datasets: [{
-                        label: 'Casos Confirmados',
-                        data: casosConfirmados,
+                        label: 'Confirmados',
+                        data: arrayPeriodo(tamanhoPeriodo, casosConfirmados),
                         borderColor: '#dbba34',
+                        backgroundColor: 'rgba(219, 186, 52, 1)',
                         fill: false
                     },
                     {
                         label: "Mortes",
-                        data: mortes,
+                        data: arrayPeriodo(tamanhoPeriodo, mortes),
                         borderColor: '#c62f29',
-                        fill: true
+                        backgroundColor: 'rgba(198, 47, 41, 1)',
+                        fill: false
                     },
                     {
                         label: "Curados",
-                        data: curados,
+                        data: arrayPeriodo(tamanhoPeriodo, curados),
                         borderColor: '#637b85',
+                        backgroundColor: 'rgba(99, 123, 133, 1)',
                         fill: false
                     }]
                 },
             });
         }
+
+
+        function removeData(chart) {
+            for(let i = chart.data.labels.length; i > 0 ; i--){
+                chart.data.labels.pop();
+                chart.data.datasets.forEach((dataset) => { dataset.data.pop(); });
+            }
+            chart.update();
+        }
+        function addData(chart, label, data, data2, data3, periodo) {
+            label = arrayPeriodo(periodo, label);
+            data = arrayPeriodo(periodo, data);
+            data2 = arrayPeriodo(periodo, data2);
+            data3 = arrayPeriodo(periodo, data3);
+            label.forEach(element => { chart.data.labels.push(element); });
+            data.forEach(element => { chart.data.datasets[0].data.push(element); });
+            data2.forEach(element => { chart.data.datasets[1].data.push(element); });
+            data3.forEach(element => { chart.data.datasets[2].data.push(element); });
+            chart.update();
+        }
+
+        let selectPeriodo = document.querySelector('#selectPeriodo');
+        selectPeriodo.addEventListener('change', () => {
+            let periodo = (selectPeriodo.value === 'all')? dias.length : selectPeriodo.value;
+            removeData(chart);
+            addData(chart, dias, casosConfirmados, mortes, curados, periodo);
+        });
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
