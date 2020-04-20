@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36638541-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-36638541-3');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -16,7 +26,7 @@
                         <p class="text-right my-4">
                             <span class="titulo1">Relatório</span><br/>
                             <span class="titulo2">Covid-19</span><br/>
-                            <span class="atualizado">Atualizado em: 19/04/2020</span>
+                            <span class="atualizado">Atualizado há </span>
                         </p>
                     </div>
                 </div>
@@ -26,63 +36,91 @@
     <main>
         <div class="container">
             <div class="row my-4">
-                <div class="col-6 col-md-2 my-2 order-md-1">
-                    <div class="card alert-warning">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Casos no Mundo
-                            </h5>
-                            <p class="card-text text-right casos_mundo">0</p>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="row">
+                        <div class="col-6 col-md-4 my-2 order-md-1">
+                            <div class="card alert-warning tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Casos no Mundo
+                                    </h5>
+                                    <p class="card-text text-right casos_mundo">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 my-2 order-md-4">
+                            <div class="card alert-warning tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Casos no Brasil
+                                    </h5>
+                                    <p class="card-text text-right casos_brasil">0</p>
+                                </div>
+                            </div>                    
+                        </div>
+                        <div class="col-6 col-md-4 my-2 order-md-2">
+                            <div class="card alert-info tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Curados no Mundo
+                                    </h5>
+                                    <p class="card-text text-right curados_mundo">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 my-2 order-md-5">
+                            <div class="card alert-info tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Curados no Brasil
+                                    </h5>
+                                    <p class="card-text text-right curados_brasil">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 my-2 order-md-3">
+                            <div class="card alert-danger tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Óbitos no Mundo
+                                    </h5>
+                                    <p class="card-text text-right obitos_mundo">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 my-2 order-md-6">
+                            <div class="card alert-danger tile">
+                                <div class="card-body mt-4">
+                                    <h5 class="card-title">
+                                        Óbitos no Brasil
+                                    </h5>
+                                    <p class="card-text text-right obitos_brasil">0</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-2 my-2 order-md-4">
-                    <div class="card alert-warning">
+                <div class="col-12 col-md-6 col-lg-3 my-2">
+                    <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Casos no Brasil
+                                Mundo
                             </h5>
-                            <p class="card-text text-right casos_brasil">0</p>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="col-6 col-md-2 my-2 order-md-2">
-                    <div class="card alert-info">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Curados no Mundo
-                            </h5>
-                            <p class="card-text text-right curados_mundo">0</p>
+                            <p class="card-text text-center">
+                                <canvas id="doughnut-chart-mundo" width="100vw" height="140vh"></canvas>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-2 my-2 order-md-5">
-                    <div class="card alert-info">
+                <div class="col-12 col-md-6 col-lg-3 my-2">
+                    <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Curados no Brasil
+                                Brasil
                             </h5>
-                            <p class="card-text text-right curados_brasil">0</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 my-2 order-md-3">
-                    <div class="card alert-danger">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Óbitos no Mundo
-                            </h5>
-                            <p class="card-text text-right obitos_mundo">0</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 my-2 order-md-6">
-                    <div class="card alert-danger">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Óbitos no Brasil
-                            </h5>
-                            <p class="card-text text-right obitos_brasil">0</p>
+                            <p class="card-text text-center">
+                                <canvas id="doughnut-chart-brasil" width="100vw" height="140vh"></canvas>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -92,18 +130,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title">Casos acumulados</h5>
+                                <div class="col-12 col-md-7">
+                                    <h5 class="card-title">Casos acumulados no Brasil</h5>
                                 </div>
-                                <div class="col col-md-3 text-right">
-                                    <select class="form-control form-control-sm">
-                                        <option>Brasil</option>
-                                        <option>Mundo</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
+                                <div class="col col-md-2 text-right">
                                     Período
                                 </div>
                                 <div class="col col-md-3 text-right">
@@ -121,7 +151,7 @@
                 </div>
                 <div class="col-12 col-md-5 my-4">
                     <div class="card">
-                        <div class="card-body" style="overflow: auto; height: 400px">
+                        <div class="card-body card-estados" style="overflow: auto; height: 62vh;">
                             <h5 class="card-title">Casos por Estado Brasileiro</h5>
                             <table class="table table-striped">
                                 <thead>
@@ -140,178 +170,21 @@
             </div>
         </div>
     </main>
-
-    <script>
-        let obitosNoBrasil = 0, casosNoBrasil = 0;
-
-        function formatarValor(valor) {
-            return valor.toLocaleString('pt-BR');
-        }
-
-        function alimentaEstados(dados){
-            dados.forEach(element => {
-
-                let dadosBuscar = ['state', 'cases', 'deaths'];
-                let linha, coluna, texto;
-
-                linha = document.createElement('tr');
-                dadosBuscar.forEach(dadoBusca => {
-                    coluna = document.createElement('td');
-                    texto = document.createTextNode(element[dadoBusca]);
-                    coluna.appendChild(texto);
-                    linha.appendChild(coluna);
-
-                    obitosNoBrasil += (dadoBusca == 'deaths')? element[dadoBusca]: 0;
-                    casosNoBrasil += (dadoBusca == 'cases')? element[dadoBusca]: 0;
-                });
-                
-                document.querySelector("tbody").appendChild(linha);
-                document.querySelector('.casos_brasil').innerHTML=formatarValor(casosNoBrasil);
-                document.querySelector('.obitos_brasil').innerHTML=formatarValor(obitosNoBrasil);
-            });
-        }
-        
-        fetch("https://covid19-brazil-api.now.sh/api/report/v1", {
-            "method": "GET"
-        })
-        .then(response => { response.json()
-            .then(result => {
-                alimentaEstados(result.data)
-            })
-        })
-        .catch(err => console.error(err));
-
-
-        let casosNoMundo = 0, curadosNoMundo = 0, curadosNoBrasil = 0, obitosNoMundo = 0;
-
-        function mundo(dados){
-            dados.forEach(element => {
-
-                let dadosBuscar = ['country', 'cases', 'confirmed', 'deaths', 'recovered'];
-                
-                curadosNoBrasil = (element['country'] == 'Brazil')? element['recovered']: curadosNoBrasil;
-
-                dadosBuscar.forEach(dadoBusca => {
-                    casosNoMundo += (dadoBusca == 'confirmed')? element[dadoBusca]: 0;
-                    curadosNoMundo += (dadoBusca == 'recovered')? element[dadoBusca]: 0;
-                    obitosNoMundo += (dadoBusca == 'deaths')? element[dadoBusca]: 0;
-                });
-            });
-            document.querySelector('.curados_brasil').innerHTML = formatarValor(curadosNoBrasil);
-            document.querySelector('.casos_mundo').innerHTML = formatarValor(casosNoMundo);
-            document.querySelector('.curados_mundo').innerHTML = formatarValor(curadosNoMundo);
-            document.querySelector('.obitos_mundo').innerHTML = formatarValor(obitosNoMundo);
-        }
-
-        fetch("https://covid19-brazil-api.now.sh/api/report/v1/countries", {
-            "method": "GET"
-        })
-        .then(response => { response.json()
-            .then(result => {
-                mundo(result.data);
-            })
-        })
-        .catch(err => console.error(err));
-
-
-        let dias = [], casosConfirmados = [], mortes = [], curados = [];
-        function graficoBrasil(dados){
-            dados.forEach(dado => {
-                if(dado['confirmed'] > 0){
-                    dias.push(dado['date']);
-                    casosConfirmados.push(dado['confirmed']);
-                    mortes.push(dado['deaths']);
-                    curados.push(dado['recovered']);
-                }
-            });
-        }
-
-        
-        fetch("https://pomber.github.io/covid19/timeseries.json", {
-            "method": "GET"
-        })
-        .then(response => { response.json()
-            .then(result => {
-                graficoBrasil(result['Brazil']);
-                desenha(selectPeriodo.value);
-            })
-        })
-        .catch(err => console.error(err));
-
-        function arrayPeriodo(periodo, dados){
-            let novoPeriodo = [];
-            for(let i = dados.length + 1 - periodo; i <= dados.length; i++){
-                novoPeriodo.push(dados[i-1]);
-            }
-            return novoPeriodo;
-        }
-
-        var canvas = document.getElementById('myChart');
-        const ctx = canvas.getContext('2d');
-        var chart;
-        function desenha(tamanhoPeriodo){
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: arrayPeriodo(tamanhoPeriodo, dias),
-                    datasets: [{
-                        label: 'Confirmados',
-                        data: arrayPeriodo(tamanhoPeriodo, casosConfirmados),
-                        borderColor: '#dbba34',
-                        backgroundColor: 'rgba(219, 186, 52, 1)',
-                        fill: false
-                    },
-                    {
-                        label: "Mortes",
-                        data: arrayPeriodo(tamanhoPeriodo, mortes),
-                        borderColor: '#c62f29',
-                        backgroundColor: 'rgba(198, 47, 41, 1)',
-                        fill: false
-                    },
-                    {
-                        label: "Curados",
-                        data: arrayPeriodo(tamanhoPeriodo, curados),
-                        borderColor: '#637b85',
-                        backgroundColor: 'rgba(99, 123, 133, 1)',
-                        fill: false
-                    }]
-                },
-            });
-        }
-
-
-        function removeData(chart) {
-            for(let i = chart.data.labels.length; i > 0 ; i--){
-                chart.data.labels.pop();
-                chart.data.datasets.forEach((dataset) => { dataset.data.pop(); });
-            }
-            chart.update();
-        }
-        function addData(chart, label, data, data2, data3, periodo) {
-            label = arrayPeriodo(periodo, label);
-            data = arrayPeriodo(periodo, data);
-            data2 = arrayPeriodo(periodo, data2);
-            data3 = arrayPeriodo(periodo, data3);
-            label.forEach(element => { chart.data.labels.push(element); });
-            data.forEach(element => { chart.data.datasets[0].data.push(element); });
-            data2.forEach(element => { chart.data.datasets[1].data.push(element); });
-            data3.forEach(element => { chart.data.datasets[2].data.push(element); });
-            chart.update();
-        }
-
-        let selectPeriodo = document.querySelector('#selectPeriodo');
-        selectPeriodo.addEventListener('change', () => {
-            let periodo = (selectPeriodo.value === 'all')? dias.length : selectPeriodo.value;
-            removeData(chart);
-            addData(chart, dias, casosConfirmados, mortes, curados, periodo);
-        });
-
-
-    </script>
+    <footer>
+        <div class="rodape py-5">
+            <div class="text-center">
+                <a href="https://github.com/vldbarbosa" target="_blank"><ion-icon class="mx-3" name="logo-github" size="large"></ion-icon></a>
+                <a href="https://www.facebook.com/vicldb" target="_blank"><ion-icon class="mx-3" name="logo-facebook" size="large"></ion-icon></a>
+                <a href="https://twitter.com/_victorldb" target="_blank"><ion-icon class="mx-3" name="logo-twitter" size="large"></ion-icon></a>
+                <a href="https://www.linkedin.com/in/victorldb/" target="_blank"><ion-icon class="mx-3" name="logo-linkedin" size="large"></ion-icon></a>
+            </div>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 </body>
 </html>
