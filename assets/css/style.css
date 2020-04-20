@@ -52,12 +52,12 @@
 }
 @media only screen and (min-width:768px){
     .tile{
-        min-height: 130px;
+        min-height: 150px;
     }
 }
 @media only screen and (min-width:992px){
     .tile{
-        min-height: 146px;
+        min-height: 168px;
     }
 }
 @media only screen and (min-width:1200px){
