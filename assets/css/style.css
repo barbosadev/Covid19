@@ -3,7 +3,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url('/assets/images/banner.png');
+    background-image: url('../images/banner.png');
     background-size: cover; 
 }
 .titulo1, .titulo2, .atualizado{
