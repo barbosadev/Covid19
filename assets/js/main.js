@@ -15,7 +15,12 @@
         let dataAtual = new Date();
         let timeDiff = Math.abs(dataAtual.getTime() - dataAtulizacao.getTime());
         let diffDays = Math.ceil(timeDiff / (1000 * 60)); 
-        document.querySelector('.atualizado').innerHTML = `Atualizado há ${diffDays} minutos`;
+        if (diffDays > 60){
+            diffDays = Math.ceil(timeDiff / (1000 * 60 * 60));
+            document.querySelector('.atualizado').innerHTML = `Atualizado há menos de ${diffDays} horas`;
+        }else{
+            document.querySelector('.atualizado').innerHTML = `Atualizado há ${diffDays} minutos`;
+        }
         //return diffDays;
     }
 
