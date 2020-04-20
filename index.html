@@ -124,6 +124,7 @@
         function formatarValor(valor) {
             return valor.toLocaleString('pt-BR');
         }
+
         function alimentaEstados(dados){
             dados.forEach(element => {
 
@@ -214,40 +215,39 @@
         .then(response => { response.json()
             .then(result => {
                 graficoBrasil(result['Brazil']);
-                //console.log(result['Brazil']);
+                desenha();
             })
         })
         .catch(err => console.error(err));
 
-
+        function desenha(){
+            var ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dias,
+                    datasets: [{
+                        label: 'Casos Confirmados',
+                        data: casosConfirmados,
+                        borderColor: '#dbba34',
+                        fill: false
+                    },
+                    {
+                        label: "Mortes",
+                        data: mortes,
+                        borderColor: '#c62f29',
+                        fill: true
+                    },
+                    {
+                        label: "Curados",
+                        data: curados,
+                        borderColor: '#637b85',
+                        fill: false
+                    }]
+                },
+            });
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: dias,
-                datasets: [{
-                    label: 'Casos Confirmados',
-                    data: casosConfirmados,
-                    borderColor: '#dbba34',
-                    fill: false
-                },
-                {
-                    label: "Mortes",
-                    data: mortes,
-                    borderColor: '#c62f29',
-                    fill: true
-                },
-                {
-                    label: "Curados",
-                    data: curados,
-                    borderColor: '#637b85',
-                    fill: false
-                }]
-            },
-        });
-    </script>
 </body>
 </html>
