@@ -65,3 +65,4 @@
         min-height: 180px;
     }
 }
+a, a:hover { color: inherit; } 
