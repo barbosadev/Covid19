@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta property="og:locale" content="pt_br"/>
-    <meta property="og:url" content="https://barbosadev.github.io/Covid19"/>
-    <meta property="og:title" content="Relatório Covid-19"/>
-    <meta property="og:description" content="Dados do coronavirus no Brasil e no Mundo em uma página."/>
-    <meta property="og:image" content="https://barbosadev.github.io/Covid19/assets/images/fb.jpg"/>
-    <meta property="og:image:type" content="image/jpeg"/>
-    <meta property="og:image:width" content="800"/>
-    <meta property="og:image:height" content="556"/>
-    <meta property="og:type" content="website"/>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <meta property="og:locale" content="pt_br" />
+    <meta property="og:url" content="https://barbosadev.github.io/Covid19" />
+    <meta property="og:title" content="Relatório Covid-19" />
+    <meta property="og:description" content="Dados do coronavirus no Brasil e no Mundo em uma página." />
+    <meta property="og:image" content="https://barbosadev.github.io/Covid19/assets/images/fb.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="556" />
+    <meta property="og:type" content="website" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36638541-3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-36638541-3');
@@ -26,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Relatório Covid-19</title>
 </head>
+
 <body>
     <header>
         <div class="banner">
@@ -33,8 +35,8 @@
                 <div class="row py-5">
                     <div class="col-12">
                         <p class="text-right my-4">
-                            <span class="titulo1">Relatório</span><br/>
-                            <span class="titulo2">Covid-19</span><br/>
+                            <span class="titulo1">Relatório</span><br />
+                            <span class="titulo2">Covid-19</span><br />
                             <span class="atualizado">Atualizado há </span>
                         </p>
                     </div>
@@ -43,7 +45,7 @@
         </div>
     </header>
     <main>
-        <div class="container">
+        <div id="app" class="container">
             <div class="row my-4">
                 <div class="col-12 col-md-12 col-lg-6">
                     <div class="row">
@@ -63,9 +65,10 @@
                                     <h5 class="card-title">
                                         Casos no Brasil
                                     </h5>
-                                    <p class="card-text text-right casos_brasil">0</p>
+                                    <p class="card-text text-right casos_brasil">
+                                        {{totalCasosConfirmadosNoBrasil | formatarNumero}}</p>
                                 </div>
-                            </div>                    
+                            </div>
                         </div>
                         <div class="col-6 col-md-4 my-2 order-md-2">
                             <div class="card alert-info tile">
@@ -83,7 +86,8 @@
                                     <h5 class="card-title">
                                         Curados no Brasil
                                     </h5>
-                                    <p class="card-text text-right curados_brasil">0</p>
+                                    <p class="card-text text-right curados_brasil">
+                                        {{totalCasosRecuperadosNoBrasil | formatarNumero}}</p>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +107,8 @@
                                     <h5 class="card-title">
                                         Óbitos no Brasil
                                     </h5>
-                                    <p class="card-text text-right obitos_brasil">0</p>
+                                    <p class="card-text text-right obitos_brasil">
+                                        {{totalMortesNoBrasil | formatarNumero}}</p>
                                 </div>
                             </div>
                         </div>
@@ -182,13 +187,21 @@
     <footer>
         <div class="rodape py-5">
             <div class="text-center">
-                <a href="https://github.com/barbosadev" target="_blank"><ion-icon class="mx-3" name="logo-github" size="large"></ion-icon></a>
-                <a href="https://www.facebook.com/barbosadev" target="_blank"><ion-icon class="mx-3" name="logo-facebook" size="large"></ion-icon></a>
-                <a href="https://twitter.com/_barbosadev" target="_blank"><ion-icon class="mx-3" name="logo-twitter" size="large"></ion-icon></a>
-                <a href="https://www.linkedin.com/in/barbosadev/" target="_blank"><ion-icon class="mx-3" name="logo-linkedin" size="large"></ion-icon></a>
+                <a href="https://github.com/barbosadev" target="_blank">
+                    <ion-icon class="mx-3" name="logo-github" size="large"></ion-icon>
+                </a>
+                <a href="https://www.facebook.com/barbosadev" target="_blank">
+                    <ion-icon class="mx-3" name="logo-facebook" size="large"></ion-icon>
+                </a>
+                <a href="https://www.linkedin.com/in/barbosadev/" target="_blank">
+                    <ion-icon class="mx-3" name="logo-linkedin" size="large"></ion-icon>
+                </a>
             </div>
         </div>
     </footer>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
@@ -196,4 +209,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 </body>
+
 </html>
