@@ -129,7 +129,6 @@ function mundo(dados) {
         horariosAtualizacao.push(element['updated_at']);
     });
 
-    document.querySelector('.curados_brasil').innerHTML = formatarValor(curadosNoBrasil);
     document.querySelector('.casos_mundo').innerHTML = formatarValor(casosNoMundo);
     document.querySelector('.curados_mundo').innerHTML = formatarValor(curadosNoMundo);
     document.querySelector('.obitos_mundo').innerHTML = formatarValor(obitosNoMundo);
