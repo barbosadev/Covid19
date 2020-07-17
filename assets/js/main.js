@@ -136,7 +136,7 @@ function mundo(dados) {
     desenharDoughnutBrasil();
 }
 
-let dias = [], casosConfirmados = [], mortes = [], curados = [];
+let dias = [], casosConfirmados = [], mortes = [], curados = [], ativos = [];
 function graficoBrasil(dados) {
     dados.forEach(dado => {
         if (dado['confirmed'] > 0) {
@@ -144,6 +144,7 @@ function graficoBrasil(dados) {
             casosConfirmados.push(dado['confirmed']);
             mortes.push(dado['deaths']);
             curados.push(dado['recovered']);
+            ativos.push(dado['confirmed'] - (dado['deaths'] + dado['recovered']));
         }
     });
 }
@@ -165,7 +166,7 @@ function desenha(tamanhoPeriodo) {
         data: {
             labels: arrayPeriodo(tamanhoPeriodo, dias),
             datasets: [{
-                label: 'Confirmados',
+                label: 'Confirmados acumulados',
                 data: arrayPeriodo(tamanhoPeriodo, casosConfirmados),
                 borderColor: '#dbba34',
                 backgroundColor: 'rgba(219, 186, 52, 1)',
@@ -183,6 +184,13 @@ function desenha(tamanhoPeriodo) {
                 data: arrayPeriodo(tamanhoPeriodo, curados),
                 borderColor: '#637b85',
                 backgroundColor: 'rgba(99, 123, 133, 1)',
+                fill: false
+            },
+            {
+                label: "Casos Ativos",
+                data: arrayPeriodo(tamanhoPeriodo, ativos),
+                borderColor: '#339e20',
+                backgroundColor: 'rgba(51, 158, 32, 1)',
                 fill: false
             }]
         },
@@ -235,15 +243,17 @@ function removeData(chart) {
     }
     chart.update();
 }
-function addData(chart, label, data, data2, data3, periodo) {
+function addData(chart, label, data, data2, data3, data4, periodo) {
     label = arrayPeriodo(periodo, label);
     data = arrayPeriodo(periodo, data);
     data2 = arrayPeriodo(periodo, data2);
     data3 = arrayPeriodo(periodo, data3);
+    data4 = arrayPeriodo(periodo, data4);
     label.forEach(element => { chart.data.labels.push(element); });
     data.forEach(element => { chart.data.datasets[0].data.push(element); });
     data2.forEach(element => { chart.data.datasets[1].data.push(element); });
     data3.forEach(element => { chart.data.datasets[2].data.push(element); });
+    data4.forEach(element => { chart.data.datasets[3].data.push(element); });
     chart.update();
 }
 
@@ -286,5 +296,5 @@ let selectPeriodo = document.querySelector('#selectPeriodo');
 selectPeriodo.addEventListener('change', () => {
     let periodo = (selectPeriodo.value === 'all') ? dias.length : selectPeriodo.value;
     removeData(chart);
-    addData(chart, dias, casosConfirmados, mortes, curados, periodo);
+    addData(chart, dias, casosConfirmados, mortes, curados, ativos, periodo);
 });
