@@ -144,7 +144,7 @@ function graficoBrasil(dados) {
             casosConfirmados.push(dado['confirmed']);
             mortes.push(dado['deaths']);
             curados.push(dado['recovered']);
-            ativos.push(dado['confirmed'] - (dado['deaths'] + dado['recovered']));
+            ativos.push(dado['confirmed'] - dado['deaths'] - dado['recovered']);
         }
     });
 }
